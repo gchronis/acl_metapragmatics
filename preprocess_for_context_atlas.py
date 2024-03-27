@@ -38,6 +38,16 @@ DB_PATH = './enwiki-20170820.db'
 nltk.download('averaged_perceptron_tagger')
 nltk.download('punkt')
 
+## really shouldnt do this globally
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+print("device : ", device)
+
+model_name = "bert-base-uncased"
+tokenizer = AutoTokenizer.from_pretrained(model_name)
+model = AutoModel.from_pretrained(model_name)
+model.eval()
+model = model.to(device)
+
 def neighbors(word, sentences):
   """Get the info and (umap-projected) embeddings about a word."""
   # Get part of speech of this word.
