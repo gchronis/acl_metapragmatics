@@ -1,0 +1,233 @@
+,corpus_id,sentence,start_idx,end_idx
+0,241583436,"Under this training paradigm, the learned model is prone to hallucinate knowledge, mixing knowledge fragments inappropriately.",11,12
+1,237940440,"6 Interestingly, we see that when asked for a longer response, the model starts to hallucinate extra content (but not slots) not given in the MR in order to satisfy the control variable.",17,18
+2,237592700,"Additionally, parametric knowledge may perform worse for less frequent facts, which don't appear often in the training set, and ""hallucinate"" responses.",24,25
+3,207758149,This causes the MT model to hallucinate.,6,7
+4,248780449,"Truth To the extent that a use case places importance on the truth of the outputs provided, it is not a good fit for GPT-3 (Dale, 2021) LMs have a tendency to ""hallucinate"" when summarizing documents.",37,38
+5,248780005,"Detoxifying posts of this kind may constitute a mission impossible for most models (possibly even for humans); the only way to produce a non-toxic 'rephrase' may be to change the original post beyond recognition, which may be rewarding systems like CAE-T5 that often hallucinate in their rephrases, as already discussed.",53,54
+6,1610577,"In automatic speech recognition (ASR), for example, OOV words pose a substantial problem, since the system will hallucinate a phonetically similar word in its vocabulary when an OOV word is encountered.",22,23
+7,211258645,"5 This step is important for PseudoD and Seq2Seq (which would learn to hallucinate entities) but not ONUS (which must reconstruct entities in q from its own decomposition, as discussed next).",14,15
+8,235294035,"2018) and also requires models to condition generation on the retrieved evidence -penalizing models that hallucinate (Holtzman et al.,",16,17
+9,246240585,"This causes the model to hallucinate-for example, that Barack Obama's wife is Hillary Clinton based on the high co-occurrence of the two entities.",5,6
+10,202558974,"The bias can help predict missing state changes (e.g., above), but can also cause XPAD to ""hallucinate"" state changes with weak evidence, simply to give each sentence a purpose.",21,22
+11,233189560,Our work addresses current limitations of models for abstractive summarization that often hallucinate information or generate summaries with coherence issues.,12,13
+12,233189560,Prior work on factuality in abstractive summarization has found that current models can hallucinate information more Stochastic birth-death-immigration models are widely used in biology and ecology to study population dynamics.,13,14
+13,245218843,"However, such pre-trained models are susceptible to generating hallucinate content that is not supported by the source documents (Cao et al.,",11,12
+14,247594092,"2020) observes that strong neural models, although fluent and creative, often hallucinate information.",14,15
+15,235266260,"Additionally, since our test set includes novel objects not seen in training, we provide the names of the objects as additional context for the LM generator (e.g. 'Vase, Laptop'); this allows a LM to copy those names over rather than hallucinate wrong ones.",48,49
+16,218596261,"We also note that GPT2 has high SER for the fully-unseen domain; upon inspection, we see slot hallucination from GPT2 within alarm 1, while Seq2Seq/CVAE never hallucinate.",33,34
+17,235097391,"Even though our models yield factually consistent summaries, as judged by human evaluation, they can still generate factually inconsistent summaries or sometimes hallucinate information that the source document does not include.",24,25
+18,248834340,"Although the generated questions do not appear biased, they may hallucinate content, which is a common problem for neural generation models.",11,12
+19,222142312,"As a result, many entities that appear in the reference summary never appear in the source, which may cause abstractive summarization models to hallucinate severely with many factual errors (Maynez et al.,",25,26
+20,222140820,"The off-the-shelf sentence-level realizer (see the supplementary material) favors the statistics-dense sentences of the baseline summaries, as it tends to hallucinate on less dense plans.",31,32
+21,15029994,"As it would be difficult to hallucinate such dependencies, we have only attempted the deep task.",6,7
+22,235294302,"When manually annotating results of our early tests, we found that BART was more likely to be extractive and copy input passages in their entirety while UQAT5 was more likely to compose new text and produce answers with textual overlap from multiple input candidates but was more likely to hallucinate content.",50,51
+23,248779912,"Finally, we discuss and analyse the challenge of generating factually-correct sentences without hallucinate information, as well as the difficulty of handling unseen attributes in both ranking and answer presentation.",15,16
+24,233204359,"Interestingly, all four models score almostperfect accuracy, meaning they don't hallucinate medical facts.",13,14
+25,233204365,"Intrinsic evaluation metrics through Likert scales or ranking methods may help select the best model, but they * Equal contribution don't ensure the model will never hallucinate information or miss key items when generating the consultation note.",28,29
+26,231847335,"In practice, the finetuned LM produces malformed, synthetic text which does not fully match with the MR it was conditioned on, as it might hallucinate additional values not consistent with its MR counterpart.",27,28
+27,189999604,"Note that although the algorithm ensures that the output tree structure is compatible with the input structure, it turns out that the model can still occasionally hallucinate content: since the neural model allows all possible token sequences in principle, it sometimes generates word sequences that express a hallucinated slot by simply skipping over the disallowed slot annotation-thereby bypassing the constraints-especially when given an unusual input.",27,28
+28,236486264,"Hallucination In some cases, ASR models can hallucinate transcriptions: e.g. providing transcriptions for audio even where no speech is present, or simply misbehaving on out-of-domain utterances (Liao et al.,",8,9
+29,247594360,"Improved Data-to-Text Model Training A known problem in data-to-text generation is that the model tends to hallucinate or neglect information in the input (Wang et al.,",24,25
+30,247594360,"This kind of examples may teach the model to hallucinate which is also an unwanted behavior, hence they are also filtered out.",9,10
+31,202763347,"Again, tuning to account for this type of noise is a balancing act, since we don't want our system to hallucinate sounds that don't exist in the original utterance, but it needs to have enough leeway that it can recover the correct name from noisy transcripts where a phoneme may be dropped or added.",23,24
+32,247694170,"Introduction A core issue in deploying text generation models for real-world applications is that they often generate factually inconsistent text with respect to the input they are conditioned on, or even completely ""hallucinate"" (Lee et al.,",36,37
+33,250390859,"Introduction A core issue in deploying text generation models for real-world applications is that they often generate factually inconsistent text with respect to the input they are conditioned on, or even completely ""hallucinate"" (Lee et al.,",36,37
+34,231692975,"We found that this additional data augmentation was particularly helpful; without it, the models would hallucinate the rest of a partial sentence.",17,18
+35,222133959,"For example, in Table 1 , the chosen REs are coffee and hand; hand 21 Sentence Y being Faithful to Sentence X implies Y does not hallucinate or state information not already implied by X. 22 See Section §2.3.2 for an explanation.",28,29
+36,202541012,"Transformers are also known to hallucinate (Lee et al.,",5,6
+37,248506182,The underlying hypothesis is that the intra-class relation of the observed examples can be modeled and that this can be learned from a few-samples to hallucinate diverse unseen examples.,29,30
+38,248506182,2017) as our hallucinator to hallucinate embeddings of sentences.,6,7
+39,248506182,"By observing the real embeddings of examples from the fine-tuning dataset, the cWGAN plays an adversarial game to hallucinate embeddings that can fool the discriminator, while the discriminator is trying to classify the fake embeddings from the real ones.",21,22
+40,248506182,"2021) which uses EDA (Wei and Zou, 2019) to augment examples at the discrete input space, we hallucinate auxiliary examples at the embedding space.",22,23
+41,161067,Comparative system evaluation in shared tasks is usually performed by pitting scores in evaluawill hallucinate different incorrect ones.,14,15
+42,14633379,Do systems hallucinate facts?,2,3
+43,235186832,"We note that with smaller values of k, both ROBERTAS2S-based and PEGASUSbased models tend to hallucinate more often.",18,19
+44,215768688,"The Missing Information and Added Information labels support the suggestion of Manning ( 2019 ) that although their system performs worse than others by most measures, its constraints make it less likely than machine-learning-based systems to omit or hallucinate information.",43,44
+45,215768688,"Overall, the results from these questions indicate that neural AMR generation systems are prone to omit or hallucinate concepts from the AMR with concerning frequency.",18,19
+46,215768688,Added information is perhaps the most troubling form of error; AMR generation systems will have severely limited potential for use in practical applications as long as they hallucinate meaning.,28,29
+47,227216922,"System Overview Unlike novel end-to-end systems, which may hallucinate content (Moryossef et al.,",13,14
+48,226226600,"We favor extractive over abstractive models as the latter are prone to hallucinate content that is unfaithful to the input (Kryscinski et al.,",12,13
+49,196183567,"Recent neural language generation systems often hallucinate contents (i.e., producing irrelevant or contradicted facts), especially when trained on loosely corresponding pairs of the input structure and text.",6,7
+50,236459782,"While usually fluent, existing methods often hallucinate phrases that contradict the facts in the table.",7,8
+51,216562425,"Firstly, even our best models still make mistakes: they i) contradict or repeat themselves on occasion, ii) tend to repeat the same phrases in separate conversations, and iii) hallucinate knowledge as seen in other generative systems (Massarelli et al.,",35,36
+52,216562425,"Knowledge Retrieval Generative models are known to hallucinate knowledge, and in general are unable to read and access external knowledge other than what is embedded in their model parameters, which may be imperfect.",7,8
+53,235253772,"However, such methods can cause the following problems: (1) since the generated content-plan may contain errors, generating solely on the content-plan leads to inconsistencies; (2) even if a perfect content-plan is provided, the autoregressive model used in the second stage is still prone to hallucinate unfaithful contents due to the well-known exposure bias (Wang and Sennrich, 2020) problem; (3) there is no guarantee that the selected key-value pairs can be described in the generated text.",59,60
+54,236486184,"We found out, that if we restrict model size and use regular language modeling objective, the model starts to hallucinate after 1-2 program tokens.",21,22
+55,232233599,"2020) as language models tend to degenerate and hallucinate (Holtzman et al.,",9,10
+56,237940882,"However, at the time of writing these models can hallucinate knowledge (Shuster et al.,",10,11
+57,229923145,"2020) obtain state of the art performance on rationale generation benchmarks, they are vulnerable to having similar behaviours and can hallucinate new facts by tapping into stored world knowledge in the language model parameters.",22,23
+58,235097501,"2016) and can hallucinate irrelevant content (Roller et al.,",4,5
+59,227231683,"There is much discussion in the field of how to control the vexed tendencies of neural generators to 'hallucinate' content (Dušek et al.,",19,20
+60,6118285,"This seems particularly useful in the case of APE, where we do not wish the neural models to ""hallucinate"" output when encountering unknown tokens.",20,21
+61,233231373,"NMT models have a propensity to hallucinate more frequently under out-of-domain inputs (Müller et al.,",6,7
+62,233231373,"Conclusion In this work we demonstrated that memorized training samples are far more likely to hallucinate under perturbation than non-memorized samples, under an extension of the Memory Value Estimator proposed in Feldman and Zhang (2020) .",15,16
+63,234487207,"Specifically, in the case of GitHub, we see that for those projects whose NL messages exhibit a fixed pattern in their structure, such as in the case of youtube-dl where users add a header denoting the file that was edited in the commit, the model tends to more frequently hallucinate the content of the message.",55,56
+64,237558722,"For example, some studies have shown that neural end-to-end data-totext approaches may hallucinate (Rohrbach et al.,",19,20
+65,233394001,"or hallucinate information like ""Yes, and the Times published it on the front page."".",1,2
+66,203734629,"In our initial experiments the generation model learns to ""hallucinate"" facts, as easily occurs when the target text is too loosely related to the conditioning input.",10,11
+67,203734629,"This leads to the model learning to ""hallucinate"" facts and necessitates a manual alignment and editing of the training data.",8,9
+68,250390612,"Inaccurate information Large language models are also known to hallucinate knowledge during text generation (Roller et al.,",9,10
+69,235422493,"This is mostly because the complete target document contains much more information than can be inferred from the input; the model learns to hallucinate facts, necessitating heavy deletion by users.",24,25
+70,237329050,"Moreover, they found that models with a more reliable visual representation hallucinate less, suggesting that a robust processing of the visual input is important for reducing hallucination.",12,13
+71,237329050,"Secondly, to quantify the extent to which different models hallucinate entities during the dialogue, we compute the CHAIR metric (Caption Hallucination Assessment with Image Relevance) proposed in Rohrbach et al. (",10,11
+72,237329050,"Instead, the other models frequently hallucinate entities that are not in the human hallucination list or have low frequency; we conjecture this means that the rate of real hallucinations is lower for VLP than for the other models.",6,7
+73,248218547,We present our major findings below: • Both models are able to hallucinate imaginary contents fairly relevant to the limited contexts given as prompts. •,13,14
+74,198975147,We show that • Using priors hallucinating the visual representation improves the performance of the model compared to when it receives only auditory inputs; • Language prior is slightly more effective than sound prior to hallucinate concurring vision.,36,37
+75,198975147,"Using the latter to hallucinate the visual scene leads to an increase of 0.10 in correlation, and an even higher increase (+0.13) is obtained when the hallucination is induced by a linguistic description of the scene.",4,5
+76,221186631,"For instance, the model can hallucinate details irrelevant to the context (the word ""bank"" in the bottom left example), a problem common in neural generative models (Tian et al.,",6,7
+77,235422140,"2020) , in which there is no notion of higher level semantic reasoning and a tendency to hallucinate content, or COD3S (Weir et al.,",18,19
+78,201657646,A good model can naturally include available facts from the persona and hallucinate others when the conversation context requires them.,12,13
+79,247862902,"Intuitively, question generators that hallucinate less are more likely to stick to the text from the source paragraph.",5,6
+80,248780300,"T5 and BART store world knowledge implicitly in their parameters and are known to hallucinate facts (Maynez et al.,",14,15
+81,235458570,"2018) , and captioning metrics do not always measure if captions ""hallucinate"" objects in an image (Rohrbach et al.,",13,14
+82,52176506,"Our analysis yields several interesting findings, including that models which score best on standard sentence metrics do not always have lower hallucination and that models which hallucinate more tend to make errors driven by language priors. *",27,28
+83,52176506,"While missing salient objects is also a failure mode, captions are summaries and thus generally Figure 1 : Image captioning models often ""hallucinate"" objects that may appear in a given context, like e.g. a bench here.",24,25
+84,52176506,"Interestingly, we find that models which score best on standard sentence metrics do not always hallucinate less.",16,17
+85,52176506,"We propose image and language model consistency scores to investigate this issue, and find that models which hallucinate more tend to make mistakes consistent with a language model.",18,19
+86,52176506,"In particular, models which optimize for CIDEr frequently hallucinate more.",9,10
+87,52176506,"Human-like sentences are not likely to hallucinate objects, and a hallucinated object is likely a strong signal to the discriminator that a sentence is generated, and is not from a human.",8,9
+88,52176506,"Moreover, vocabulary size does not correlate with hallucination either, i.e. models with more diverse descriptions may actually hallucinate less.",19,20
+89,52176506,"This is somewhat surprising, as a model which has access to image information at each time step should be less likely to ""forget"" image content and hallucinate objects.",29,30
+90,52176506,"Furthermore, we see that models with stronger image consistency frequently hallucinate fewer objects, suggesting that strong visual processing is important for avoiding hallucination.",11,12
+91,53082704,"We instantiate these ideas in the domain of Visual Question Answering (VQA), by proposing two tasks that help measure how well a human 'understands' 4 When piloting the tasks ourselves, we found it easy to 'overfit' to the explanations and hallucinate patterns.",48,49
+92,237414674,"Interestingly, the model output contains more gold concepts than the source input on XSum, possibly because the significant level of extrinsic information in the target out-put of XSum encourages the model to hallucinate.",36,37
+93,237414674,"2020) show that models learned in a seq2seq manner are prone to hallucinate unfaithful or nonfactual information, hindering their applicability to real-world applications.",13,14
+94,245144787,"2021b) ; data-to-text models sometimes hallucinate texts that are not supported by the data (Parikh et al.,",10,11
+95,247594506,"For example, it can hallucinate facts that are not present in the theory.",5,6
+96,247594506,It also makes many non-interpretable generation errors where the model's output format is completely violated or the model seems to hallucinate some facts (rows 3-6 in Table 14 ).,23,24
+97,216641852,"While usually fluent, existing methods often hallucinate phrases that are not supported by the table, suggesting that this dataset can serve as a useful research benchmark for high-precision conditional text generation.",7,8
+98,248721759,"2021; Goyal and Durrett, 2021) , we also train it to hallucinate incorrect modifiers into spans from P and A. To this end, we randomly drop adjectives and adverbs from 10% of the gold predicate and argument spans.",14,15
+99,53222445,"To the extent that neural approaches continue to hallucinate content and fail to observe constraints and preferences implemented by grammar-based approaches in such a comparison, it would also be worthwhile to investigate additional ways of combining neural and grammarbased methods.",8,9
+100,221802479,This is detrimental since the model can choose to hallucinate medical concepts that are not part of the snippet.,9,10
+101,226262184,"2020) since neural abstractive summarizers have been shown to hallucinate/misrepresent facts (See et al.,",10,11
+102,233296648,"2019) , and exhibit a propensity to hallucinate non-existent or incorrect content that is unacceptable in most user-oriented applications.",8,9
+103,237491581,"Our findings demonstrate the importance for practitioners to evaluate model tendency to hallucinate rather than read, and show that our mitigation strategy encourages generalization to evolving information (i.e., time-dependent queries).",12,13
+104,237491581,"However, this memorization behaviour has manifested in a penchant to hallucinate, or parrot answers memorized during training, completely ignoring relevant documents when provided (Krishna et al.,",11,12
+105,237491581,"We find that a reason models either hallucinate an answer or picks a random context span is when the substituted answer is implausible, as is designed in the type-swap substitution.",7,8
+106,227127272,The FINE 4-way output is more useful for system evaluation (we can distinguish whether the system tends to hallucinate or omit information).,21,22
+107,247596715,"This is because, speech recognizers induce transcription errors and abstractive summarization models may hallucinate facts that are not entailed by the original (Kryscinski et al.,",14,15
+108,233241131,"If this pattern occurs in similar types of examples in the training set (e.g., first-person written articles), then it may effectively teach the model to hallucinate, providing a possible explanation for the model behavior described earlier.",31,32
+109,233241131,One remaining question is how state-of-the-art models can hallucinate but still perform well on benchmark datasets according to standard evaluation metrics.,14,15
+110,233241131,"Of course, one reason is that the models only hallucinate on some fraction of examples in the dataset.",10,11
+111,224818792,"Abstractive summarizers are considered to be less reliable despite their impressive performance on benchmark datasets, because they can hallucinate facts and struggle to keep the original meanings intact (Kryscinski et al.,",19,20
+112,241583525,"2021) , pre-trained neural language models value v 1 value v 2 (hence neural architectures in general), are prone to hallucinate facts (Dušek et al.,",26,27
+113,234742446,"Despite such improvement, PLMs fine-tuned only on the clean (or labeled) data might be more prone to hallucinate factual knowledge (e.g., ""Visvesvaraya Technological University"" in Table 1 ).",22,23
+114,209086817,"Further, highlights are guaranteed to be true-to-the-original, while system abstracts can sometimes ""hallucinate"" facts and distort the original meaning.",21,22
+115,227216973,"When generating game summaries, systems will often hallucinate these attributes as they deem it probable that such language is included in the summary, but the attribute is not available to the copy attention mechanism.",8,9
+116,248227301,"Our study reveals that the standard benchmarks consist of >60% hallucinated responses, leading to models that not only hallucinate but even amplify hallucinations.",21,22
+117,248227301,"Contrasting this with human gold responses, the models not only hallucinate but also amplify the percentage of hallucinations, except CTRL on WOW.",11,12
+118,248227301,"Moreover, we show that conversational models trained on these benchmarks not only hallucinate but also amplify hallucinations, even the models that were designed to alleviate this issue.",13,14
+119,237263305,Hallucinations Large LMs are known to hallucinate text content; we saw this happen frequently for style transfer.,6,7
+120,249454984,"2020) , or hallucinate false knowledge (Roller et al.,",4,5
+121,8680683,"We ""hallucinate"" new phrase table entries by composing the unigram translations from the baseline system's phrase table and translations learned from comparable monolingual corpora.",2,3
+122,8680683,"Augment the baseline phrase table with hallucinated translations and new feature functions estimated from monolingual corpora We define an algorithm for generating loosely compositional phrase pairs, which we use to hallucinate new translations.",31,32
+123,8680683,"q q q q q q q q q q q q 0 10 20 Because we hallucinate translations for source phrases that appear in the training data up to 100 times, our baseline models include some of the oracle phrase translations.",17,18
+124,8680683,"2008) , however, unlike that work, we hallucinate phrase pairs that did not appear in training data in order to augment the original, bilingually extracted phrase table.",10,11
+125,248810934,"Such examples include cases where some summaries hallucinate the first name of a person, which the workers should mark them as not factual.",7,8
+126,237571691,"600 (150 × 2 × 2) summaries are annotated to demonstrate how often do the models ""hallucinate"", i.e., generating content not grounded by the source.",19,20
+127,250390973,"Faithful and Factual Consistent Text Generation Contrastive learning is also used to improve faithfulness and factuality of data-to-text genera-tion and abstractive summarization, which has been shown a very challenging issue with the pretrained language models that often hallucinate (Kryscinski et al.,",44,45
+128,225074971,"Thus, if the contextual knowledge is not sufficient to extrapolate a definition, the modelwhich is required to always generate an outputwill hallucinate an answer on the basis of contextual clues, incurring the risk of introducing nonfactualities.",23,24
+129,239016608,"They show that around 70% of XSUM's training data consists of hallucinated content in gold summaries, which encourages the models to similarly learn to hallucinate facts.",27,28
+130,218538004,"A closer inspection of segments where the MLE system was found to hallucinate shows that some segments were scored higher in adequacy with MRT, others lower in fluency.",12,13
+131,249204508,"Looking to the generated translations, we see that, regardless of the decoding algorithm, the systems before fine-tuning and not using tagging hallucinate '¡/-... -/¿' style marks when translating sentences corresponding to typical headers like 'CURRENT DISEASE' or 'TREATMENT'.",26,27
+132,207847180,"This gives rise to a tendency to hallucinate translations, i.e. to produce translations that are fluent, but unrelated to the content of the source sentence (Lee et al.,",7,8
+133,237604955,"2019) , which is unlikely to hallucinate since the full source content is always available during training.",7,8
+134,248779944,layout to hallucinate what might appear in the unobserved part of the scene.,2,3
+135,248779944,"For the third row in the table, we design a model that takes FoV and an object type as an input and predicts a direction (i.e., hallucinate where it might appear) as output.",29,30
+136,248779944,"Conclusion In this paper, we introduced HOLM -a model that can extract prior knowledge about objects from LMs and hallucinate objects in future observations.",20,21
+137,226254579,"Neural sequence models can generate highly fluent sentences, but recent studies have also shown that they are also prone to hallucinate additional content not supported by the input.",21,22
+138,218571335,"They are good at copying important source content, but tend to concatenate unrelated spans and hallucinate details when generating more abstractive sentences.",16,17
+139,218571335,"Models tend to hallucinate information (e.g. entities, events, date) that is not present in the source.",3,4
+140,236912977,"Due to their autoregressive nature, neural summarization models have the unique property to ""hallucinate"" new content (Kryscinski et al.,",15,16
+141,52119752,"The example predictions in Table 7 illustrate how this model tends to drop content (""Alfred Warden"", ""mouth"", ""Hamburg""), hallucinate common elements from its training set (""food"", ""ingredient"", ""publisher"") and generally fails to produce coherent sentences.",29,30
+142,248512968,"Question-Answer Filtering Generative models may hallucinate, that is, generate content that is inconsistent with its input source (Alberti et al.,",7,8
+143,225070343,"2020) , demonstrate an impressive ability to generate fluent text, but their outputs are difficult to control beyond a prompt, and they manifest a tendency to hallucinate facts (Wiseman et al.,",29,30
+144,225070343,"2020) , but they have a tendency to hallucinate facts (Wiseman et al.,",9,10
+145,244909449,"However, recent studies have shown that these systems are prone to hallucinate content that is not supported by the source document (Maynez et al.,",12,13
+146,244909449,"Kang and Hashimoto (2020) propose a ""loss truncation"" training algorithm that filters out noisy training samples which may lead a model to hallucinate.",26,27
+147,233296346,"Data Hallucination The methods introduced here to combat the annotation bottleneck are somewhat orthogonal to the method of data hallucination introduced in Anastasopoulos and Neubig ( 2019 ), as we aim for identifying new real examples from a vocabulary, rather than hallucinate nonce ones.",43,44
+148,245218924,"The latter is a particular issue as these claims can cause the model to learn to hallucinate during training, and should be impossible for the model to guess during evaluation.",16,17
+149,233296059,"Despite maintaining plausible general linguistic capabilities, dialogue models are still unable to fully discern facts and may instead hallucinate factually invalid information.",19,20
+150,233296059,"To ascertain the degree to which KG-grounded dialogue systems hallucinate and the nature of these hallucinations, we conduct a systematic evaluation by soliciting human judgement.",11,12
+151,233296059,This reveals that in certain cases responses might be originally faithful to G k c but increasing diversity encourages the model to hallucinate.,22,23
+152,233296059,2020) ) demonstrate that state-of-the-art natural language generation (NLG) models can hallucinate by missing important entities.,20,21
+153,248085885,One of the most interesting observations is that neural NLG models can hallucinate not only factually inaccurate or unverifiable content but also politically biased content.,12,13
+154,173990592,"2018) find that neural captioning models often ground object mentions into incorrect objects due to correlations in the training data, and can hallucinate non-existing objects.",24,25
+155,250390521,"However, state-of-the-art NMT methods sometimes repeat words, leave out important pieces of the translation, and hallucinate information not contained in the source, or in other words, fail to accurately capture the semantics of the source in some cases.",24,25
+156,226262386,"This pattern is expected in the OCR task, as the recognition model uses the image to make predictions and is more likely to confuse a character's shape for another than to hallucinate or erase pixels.",33,34
+157,202724689,"Unlike seq2seq models that occasionally hallucinate content or generate incomprehensible outputs, our system remains faithful to its inputs, since it builds outputs by rearranging input elements and conjugating them.",5,6
+158,207847447,At the same time they often hallucinate or drop attributes.,6,7
+159,237558792,"As such, when the model ends up in a poorly trained part of its distribution, it can still hallucinate terminals; in particular, it can end up stuttering words until the maximum output length is reached, yielding an invalid tree structure.",20,21
+160,30830682,"Li, 2008) proposed a scheme for large-scale discriminative training by using the parallel corpus directly, however such human-labeled parallel corpora are usually very expensive to acquire, hence later on (Li, 2010; Li, 2011) proposed semi-supervised methods to ""hallucinate"" training data for discrminative training.",53,54
+161,30830682,"n. This has led to the recent development of semi-supervised training methods that hallucinate ""labeled"" training set by using samples y i from the target side only.",15,16
+162,30830682,"If we hallucinate a raw training set G (namely the large monolingual corpus from which we select good samples to build up the final training set) with M sentences(that is |G| = M and G has 2 M subsets), of course we can select a subset D ∈ 2 G having the highest Q(D) score in brute-force manner by computing the score for each subset of G. But this is obviously not manageable when M is large, therefore we hope to compute Q(D) on-the-fly as a new training sample comes and decide if we want to add this sample to the final training set or not.",2,3
+163,30830682,"Our baseline test set scores are given by the forward baseline system built in this step, and the reverse system is used to hallucinate the missing inputs for semi-supervised discriminative training, according to the ""round-trip"" method.",24,25
+164,232404053,"However, this does not indicate Transformer models hallucinate more.",8,9
+165,232404053,"Particularly, faithfulness reflects how likely the generated sentences hallucinate facts that are not supported by the tables.",9,10
+166,51876975,A second difference is that COCO-trained models often seem to hallucinate objects.,12,13
+167,51876975,"For instance, they hallucinate ""front of building"" for the first image, ""clock and two doors"" for the second, and ""birthday cake"" for the third image.",4,5
+168,233204406,"Each of these categories is further divided into Intrinsic (errors that arise as a result of misinterpreting information from the source article) and Extrinsic (errors that hallucinate new information or facts not present in the source article), following the characterization from Maynez et al. (",29,30
+169,233204406,Models trained on XSUM learn to hallucinate new content and consequently produce extrinsic errors: 60% of the errors made by BART models are extrinsic.,6,7
+170,233204406,"When a word in the summary is non-factual, training on it encourages the model to hallucinate new content.",18,19
+171,248780263,"This is especially pressing when predicting with incomplete intent, as the model is encouraged to hallucinate, and may hallucinate information that it has memorized from other users' data.",16,17
+172,248780263,"This is especially pressing when predicting with incomplete intent, as the model is encouraged to hallucinate, and may hallucinate information that it has memorized from other users' data.",20,21
+173,248780263,We could easily completely remove the model's ability to hallucinate free text.,10,11
+174,239009616,"Despite generating plausible and engaging responses, existing models still hallucinate invalid information (Roller et al.,",10,11
+175,234334020,"This is likely due to the reduction of noisy text that cannot be generated from the document, allowing the model to learn to synthesize information from the text without trying to hallucinate new information.",33,34
+176,247793148,"Table 11 : Incorrect behavior on WebNLG: besides the minor disfluencies caused by the templates (""Akron, Ohio is from...""), the models (except for 3-STAGE filtered) tend to hallucinate and merge the facts incorrectly.",39,40
+177,239015959,"This issue gets further exacerbated in the context of generation tasks, where neural models are prone to hallucinate additional content not supported by the input (Maynez et al.,",18,19
+178,239015959,"They hallucinate to generate novel concepts like cloudy hail, drop relevant details like cafe located in Emeryville, and are repetitive in nature.",1,2
+179,236034557,"Large language models, even though they store an impressive amount of knowledge within their weights, are known to hallucinate facts when generating dialogue (Shuster et al.,",20,21
+180,236034557,"Further, static language models are known to hallucinate, that is they generate plausible looking statements that are factually incorrect, which can be interpreted as a form of lossy compression when employing training to encode that knowledge within the weights of a neural network; see Shuster et al. (",8,9
+181,236034557,Standard BART-Large fine-tuned models on the other hand typically either hallucinate knowledge or else fall back to generic statements.,14,15
+182,236034557,Standard BART-Large fine-tuned models on the other hand typically either hallucinate knowledge or else fall back to generic statements.,14,15
+183,226262222,"They are widely considered too unreliable for business applications; they have a tendency to hallucinate facts, unsupported by the structured data they were given (Wiseman et al.,",15,16
+184,225067001,the input triples that indicates whether or not the generated text captures the full meaning of the triples and does not hallucinate extra information.,21,22
+185,233296487,"Entity Faithfulness Summary Faithfulness From the observation that models often hallucinate entities with no correct replacement in the source, we suspect that solving entity faithfulness alone does not guarantee the faithfulness of the summary.",10,11
+186,247451272,"2020) hallucinate significantly in this setting, justifying our choice of an extractive framework here.",2,3
+187,219720870,"We did this because neural models are known to hallucinate information (Rohrbach et al.,",9,10
+188,1389109,"Generalization might be improved by methods that ""hallucinate"" unobserved productions (Mohri and Roark, 2006) , and robustness could be improved using manual or automated tree annotation (e.g., Klein and Manning, 2003; Petrov and Klein, 2007) .",8,9
+189,5013006,"Both the SEQ2SEQ and the MULTISEQ2SEQ models ""hallucinate"" new information (""served as a test pilot"", ""born on Nov 18, 1983"").",8,9
+190,244054458,Post and Vilar (2018) baseline is particularly prone to hallucinate Lee et al. (,11,12
+191,244054458,"The LC model generates a correct translation and proceeds to hallucinate till it finally produces a sentence with ""a report"".",10,11
+192,52287106,"The parameters tested are the hidden size of encoder/decoder (32, 64, 128) , size of the character embeddings (8, 16), whether to use patches or not and what amount of additional training data to hallucinate with the enhancer (1×, 5×).",44,45
+193,245130929,"Our approach assumes that high-scoring candidates under the model are good quality, but this assumption is violated in certain cases, like when the model attempts to hallucinate information.",30,31
+194,201679015,"Secondly, in order to reduce the bias of the decoder's language model, they hallucinate two types of data that encourage common affixes and character copying.",16,17
+195,245219136,"However, prior work found that they often hallucinate (Xu et al.,",8,9
+196,250390496,"Liu and Hulden (2022) introduce a more refined method to hallucinate synthetic stems, which aims to honor the phonology of the target language by generating sequences of random syllables rather than random characters.",12,13
+197,202787716,"In a relatively simple task, such as contraction generation, rulebased methods are more reliable, and, overall, are preferable due to their robustness and easy repair comparing to neural models, which may, for instance, hallucinate incorrect content.",41,42
+198,1530336,"To handle these situations, the Semantic Linker has a second type of state transition in which it is able to ""hallucinate"" an object of one of a pre-determined set of clases, and add link-groups between that hallucinated object and the fragment structures already present.",22,23
+199,202542687,"The most prominent error case is that the model will sometimes hallucinate differences (Figure 5 , bottom row).",11,12
+200,216869577,"In this example, a model that assigns high probability to the new fact (Thursday) must also frequently hallucinate dates on other examples.",20,21
+201,216869577,"Much like in the earlier example, we can see that a model which aims to have low log loss on this dataset must spend a substantial amount of effort learning to hallucinate.",32,33
+202,216869577,We would like the model to ignore data that would force it to unnecessarily hallucinate at test time.,14,15
+203,216869577,"Examples that cause a model to hallucinate may still contain valid information about the fluency of a sentence, which hotstarting can capture.",6,7
+204,216869577,"Top-p and direct sampling both have diverse phrasings, but also hallucinate facts ('earthquake' in sampling and 'torrential rains' in top-p sampling).",13,14
+205,218487159,"We then hallucinate reduplication into 8% of the Base data, and Figure 7 : Reduplication in Kunwinjku has three forms, and each form has its own CV templates defining how much of the verb is captured and copied.",2,3
+206,218487159,"In this second iteration, we may find that we no longer need to hallucinate reduplication because it is sufficiently represented in the new training set.",14,15
+207,220045929,"Such a simple system would tend to hallucinate many spurious yet frequent morphological functions, which may not be possible morphologically from a richer linguistic perspective.",7,8
+208,234688073,"Inaccuracy guardrail Modern text generation models are known to hallucinate facts (Huang et al.,",9,10
+209,237440458,"Sentences whose translations cannot be regarded as hallucinations are not relevant to our study, neither are those for which the baseline and the system to which it is compared to both hallucinate.",33,34
+210,237513517,"We give the precise p-values as well as more details about the questions crowd-workers were asked in Appendix E. We also conduct a manual analysis of the faithfulness errors made by FULL generations in Ap-pendix B; we generally find that FULL generations do not hallucinate more than S2S+Copy generations (the most faithful generations according to crowd-workers), but they do more frequently contradict information in the source table.",51,52
+211,237431059,"Gold What fun it is, with feet in sharp steel shod, M How fun it is to wear iron-clad shoes, M+ST Their iron shoes are saucy fun, Analysis It is well-known that occasionally NMT systems have a tendency to generate translations that are grammatically correct but unrelated to the source sentence particularly for low-resource settings (e.g., hallucinate words that are not mentioned in the source language) (Arthur et al.,",68,69
+212,247939302,"1  The main problems with this setup for RE are: 1) The model might ""hallucinate"" by generating entity mentions that do not appear in the source text.",18,19
+213,218487034,In this paper we have analyzed limitations of these models for abstractive document summarization and found that these models are highly prone to hallucinate content that is unfaithful to the input document.,23,24
+214,218487034,We seek to answer the following questions: (i) How frequently do abstractive summarizers hallucinate content?; (,16,17
+215,218487034,"Hallucinations in Summarization Open-ended generation -the task of generating text that forms a natural continuation from the input text -requires the model to hallucinate text; hence the focus has been to ensure that the model learns to generate text that is more human-like (i.e., less repetitive or dull with more content-related words) (Holtzman et al.,",25,26
+216,235313847,"Note that fine-tuning will probably give rise to different behavior on the 70% of CTX cases, since the S ∅ will hallucinate differently than the newly fine-tuned model (which further suggests why our analysis should focus on S ∅ ).",25,26
+217,1296084,"The most important issue in performing reinterpretation is controlling the process that the system does not ""hallucinate"" arbitrary meanings into an expression.",17,18
+218,2131195,"The semantic linker may also ""hallucinate"" a new node to bridge two fragments between whom no links can otherwise be computed.",6,7
+219,1537555,"Node _£,atCCU~ 0 np 1 np 2 nC) 3 n([]) 4 n([1 I]) 5 n([1]) 6 n( Figure 4 In the example of the fierce brown cat we obtain connections listed in Figure 4 and the graph shown in Figure 5 Figure 5 It simplifies the algorithm to hallucinate a dummy node corresponding to the ""inverse"" of the target category of the derivation ; this is node 0.",61,62
+220,2972357,the system can hallucinate likely words using word co-occurrence statistics alone.,3,4
+221,2972357,"However, the system can still generate verbs when action and pose detectors have been run, and this framework allows the system to ""hallucinate"" likely verbal constructions between objects if specified at runtime.",25,26
+222,2972357,"To evaluate the system against other systems, we specify that the system should ( 1 ) not hallucinate likely verbs; and (2) return the longest string possible.",18,19
+223,14241519,"For example, it seems likely that for our application it is much less problematic to ""miss"" information than to ""hallucinate"".",23,24
+224,221819253,"In this example, LSTM and Transformer hallucinate mentioning incorrect location such as ""moldavia"", and ""alaska"".",7,8
+225,201740458,"which is not fluent at all, but doesn't hallucinate gays there so it may be more usable for post-editing.",10,11
+226,249151889,"This is because DLMs continue to hallucinate while generating questions in general-purpose domains, which can lead to factually incorrect responses.",6,7
+227,249151889,"Our experiments show that without process knowledge, DLMs hallucinate by generating unsafe, incoherent, and irrelevant questions that are not helpful for MHPs in pre-screening or triaging.",9,10
+228,238743793,We further show that generated explanations often hallucinate information and miss key elements that indicate the label.,7,8
+229,238743793,"We show the generated explanations contain words in the true explanations, but they fail to reproduce important phrases and often hallucinate entities during generation.",21,22
+230,238743793,3b show that the BERT model and the E-SNLI-pretrained model (trained with k = 16) hallucinate for OOD vocab.,21,22
+231,238743793,"4b show that both the BERT model and E-SNLI-pretrained model (trained with k = 4) hallucinate for OOD vocab, and the hallucination rate is slightly worse for OOD templates.",21,22
