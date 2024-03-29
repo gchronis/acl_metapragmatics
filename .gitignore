@@ -1,0 +1,6 @@
+.ipynb_checkpoints/
+__pycache__/
+data/logic_words/.ipynb_checkpoints/
+collected_tokens/.ipynb_checkpoints/
+collected_tokens/acl/.ipynb_checkpoints/
+collected_tokens/coca/.ipynb_checkpoints/
