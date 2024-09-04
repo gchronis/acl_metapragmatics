@@ -101,7 +101,7 @@ if __name__ == '__main__':
 
     # words we wish to collect sentences for
     #targets = ["toxic", "toxicity", "hallucination", "hallucinate", "safe", "safety"]
-    targets = ["rationale"]
+    targets = ["reference", "intention", "intension", "sense", "symbol", "symbolic", "index", "indexical", "icon", "iconic"]
 
     df = load_acl_archive()
     
