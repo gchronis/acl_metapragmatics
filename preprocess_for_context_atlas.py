@@ -12,6 +12,9 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+#
+# Edited by Gabriella Chronis 2024
+#
 # ==============================================================================
 
 """Preprocessing the data."""
@@ -23,7 +26,7 @@ from __future__ import print_function
 import os
 import torch
 #from pytorch_pretrained_bert import BertTokenizer, BertModel, BertForMaskedLM
-from transformers import AutoTokenizer, AutoModel
+from transformers import AutoTokenizer, AutoModel, AutoConfig
 import sqlite3 as sql
 import re
 import numpy as np
@@ -32,6 +35,8 @@ import json
 from tqdm import tqdm
 import nltk
 import pandas as pd
+
+from sklearn.cluster import KMeans
 
 
 DB_PATH = './enwiki-20170820.db'
@@ -48,9 +53,10 @@ model = AutoModel.from_pretrained(model_name)
 model.eval()
 model = model.to(device)
 
-def neighbors(word, sentences):
+def neighbors(word, df):
   """Get the info and (umap-projected) embeddings about a word."""
   # Get part of speech of this word.
+  sentences  = df['sentence'].to_list()  
   sent_data = get_poses(word, sentences)
 
   # Get embeddings.
@@ -59,7 +65,11 @@ def neighbors(word, sentences):
   # Use UMAP to project down to 3 dimnsions.
   points_transformed = project_umap(points)
 
-  return {'labels': sent_data, 'data': points_transformed}
+  clusters = cluster_embeddings(points, k=5)
+
+  features = predict_features_for(points, model="buchanan")
+
+  return {'labels': sent_data, 'data': points_transformed, 'clusters': clusters}
 
 def project_umap(points):
   """Project the words (by layer) into 3 dimensions using umap."""
@@ -69,6 +79,9 @@ def project_umap(points):
     points_transformed.append(transformed)
   return points_transformed
 
+"""
+GS chronis 03/24
+"""
 def get_embeddings(word, sentences):
   # always take the first occurrence of a word that appears twice in the sentnce
   word_occurrence = 0
@@ -77,7 +90,7 @@ def get_embeddings(word, sentences):
   points = [[] for layer in layers]
   print('Getting embeddings for %d sentences '%len(sentences))
   for sentence in sentences:
-    inputs = tokenizer(sentence, return_tensors="pt")
+    inputs = tokenizer(sentence, truncation=True, return_tensors="pt")      
     words = [i[0]
         for i in tokenizer.backend_tokenizer.pre_tokenizer.pre_tokenize_str(sentence)]
     target_word_indices = [i for i, x in enumerate(words) if x == word]
@@ -94,59 +107,37 @@ def get_embeddings(word, sentences):
       points[l].append(sentence_embedding)
     
   points = np.asarray(points)
-  return points
-
-# def get_embeddings(word, sentences):
-#   """Get the embedding for a word in each sentence."""
-#   # Tokenized input
-#   layers = range(-12, 0)
-#   points = [[] for layer in layers]
-#   print('Getting embeddings for %d sentences '%len(sentences))
-#   for sentence in sentences:
-#     sentence = '[CLS] ' + sentence + ' [SEP]'
-#     tokenized_text = tokenizer.tokenize(sentence)
-
-#     # Convert token to vocabulary indices
-#     indexed_tokens = tokenizer.convert_tokens_to_ids(tokenized_text)
-
-#     # Define sentence A and B indices associated to 1st and 2nd sentences (see paper)
-#     # should give you something like [0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1]
-#     sep_idxs = [-1] + [i for i, v in enumerate(tokenized_text) if v == '[SEP]']
-#     segments_ids = []
-#     for i in range(len(sep_idxs) - 1):
-#       segments_ids += [i] * (sep_idxs[i+1] - sep_idxs[i])
-
-#     # Convert inputs to PyTorch tensors
-#     tokens_tensor = torch.tensor([indexed_tokens])
-#     segments_tensors = torch.tensor([segments_ids])
-
-#     tokens_tensor = tokens_tensor.to(device)
-#     segments_tensors = segments_tensors.to(device)
-
-#     # Predict hidden states features for each layer
-#     with torch.no_grad():
-#       encoded_layers, _ = model(tokens_tensor, segments_tensors)
-#       encoded_layers = [l.cpu() for l in encoded_layers]
-
-#     # We have a hidden states for each of the 12 layers in model bert-base-uncased
-#     encoded_layers = [l.numpy() for l in encoded_layers]
-#     try:
-#       word_idx = tokenized_text.index(word)
-#     # If the word is made up of multiple tokens, just use the first one of the tokens that make it up.
-#     except:
-#       for i, token in enumerate(tokenized_text):
-#         if token == word[:len(token)]:
-#           word_idx = i
-
-#     # Reconfigure to have an array of layer: embeddings
-#     for l in layers:
-#       sentence_embedding = encoded_layers[l][0][word_idx]
-#       points[l].append(sentence_embedding)
-
-
+  return points 
     
-#   points = np.asarray(points)
-#   return points
+
+def cluster_embeddings(points, k=5):
+    """
+    :points: an np.ndarray of bert embeddings of dimension [n_layers, n_words, n_dims] (i.e. [12,200,768])
+
+    return: an 2D np.ndarray containing cluster ids of shape [n_layers, n_words]
+    """
+    num_layers = points.shape[0]
+    clusters = []
+    for l in range(0, num_layers):
+        embs = points[l]
+        
+        
+        kmeans_obj = KMeans(n_clusters=k)
+        kmeans_obj.fit(embs)
+
+        #label_list = kmeans_obj.labels_
+        #cluster_centroids = kmeans_obj.cluster_centers_
+        clusters.append( kmeans_obj.fit_predict(embs))
+
+    return np.asarray(clusters)
+
+def predict_features_for(points, model="buchanan"):
+    """
+    Not implemented yet!
+
+    should return a matrix of feature predictions 
+    """
+    return None
 
 def tokenize_sentences(text):
   """Simple tokenizer."""
