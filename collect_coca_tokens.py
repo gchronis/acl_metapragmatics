@@ -1,6 +1,7 @@
 #from __future__ import print_function
 #import time
 #import numpy as np
+import argparse
 import pandas as pd
 
 #from sklearn.decomposition import PCA
@@ -90,6 +91,11 @@ if __name__ == '__main__':
     _COCA_ARCHIVE_PATH = '/Volumes/data_gabriella_chronis/corpora/coca.2017.parquet'
     _COCA_OUT_DIR = './collected_tokens/coca'
 
+    parser = argparse.ArgumentParser(description="Parse a corpus file.")
+    parser.add_argument('--corpus_path', type=str, required=False, default=_COCA_ARCHIVE_PATH, help="Path to the corpus file.")
+    parser.add_argument('--out_dir', type=str, required=False, default=_COCA_OUT_DIR, help="Path to the corpus file.")
+    args = parser.parse_args()
+
     # Load the English spacy model without all the bells and whistles 
     # we literally only need the sentencizer or it takes a million years
     nlp = spacy.load("en_core_web_sm", disable=["tok2vec", "tagger", "parser", "attribute_ruler", "lemmatizer", "ner"])
@@ -98,11 +104,12 @@ if __name__ == '__main__':
     # words we wish to collect sentences for
     #targets = ["toxic", "toxicity", "hallucination", "hallucinate", "safe", "safety"]
     #targets = ["reference", "intention", "intension", "sense", "symbol", "symbolic", "index", "indexical", "icon", "iconic"]
-    targets = ["model", "models"]
+    #targets = ["model", "models"]
+    targets = ["human", "harness", "helpful", "honest", "harmless", "friendly"]
 
-    df = load_archive(_COCA_ARCHIVE_PATH)
+    df = load_archive(args.corpus_path)
     
     phrase_matcher = build_phrase_matcher(targets=targets)
     # create a csv for every new word.
-    get_matches_in_corpus(df, targets, outdir=_COCA_OUT_DIR, phrase_matcher=phrase_matcher)
+    get_matches_in_corpus(df, targets, outdir=args.out_dir, phrase_matcher=phrase_matcher)
     
