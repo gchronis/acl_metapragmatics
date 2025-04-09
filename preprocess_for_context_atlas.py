@@ -30,11 +30,15 @@ from transformers import AutoTokenizer, AutoModel, AutoConfig
 import sqlite3 as sql
 import re
 import numpy as np
-import umap
+import umap.umap_ as umap
 import json
 from tqdm import tqdm
 import nltk
 import pandas as pd
+from minicons import cwe
+from torch.utils.data import DataLoader
+import spacy
+
 
 from sklearn.cluster import KMeans
 
@@ -43,101 +47,178 @@ DB_PATH = './enwiki-20170820.db'
 nltk.download('averaged_perceptron_tagger')
 nltk.download('punkt')
 
-## really shouldnt do this globally
-device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-print("device : ", device)
 
-model_name = "bert-base-uncased"
-tokenizer = AutoTokenizer.from_pretrained(model_name)
-model = AutoModel.from_pretrained(model_name)
-model.eval()
-model = model.to(device)
 
-def neighbors(word, df):
-  """Get the info and (umap-projected) embeddings about a word."""
-  # Get part of speech of this word.
-  sentences  = df['sentence'].to_list()  
-  sent_data = get_poses(word, sentences)
 
-  # Get embeddings.
-  points = get_embeddings(word.lower(), sentences)
 
-  # Use UMAP to project down to 3 dimnsions.
-  points_transformed = project_umap(points)
-
-  clusters = cluster_embeddings(points, k=5)
-
-  features = predict_features_for(points, model="buchanan")
-
-  return {'labels': sent_data, 'data': points_transformed, 'clusters': clusters}
-
-def project_umap(points):
-  """Project the words (by layer) into 3 dimensions using umap."""
-  points_transformed = []
-  for layer in points:
-    transformed = umap.UMAP().fit_transform(layer).tolist()
-    points_transformed.append(transformed)
-  return points_transformed
-
-"""
-GS chronis 03/24
-"""
-def get_embeddings(word, sentences):
-  # always take the first occurrence of a word that appears twice in the sentnce
-  word_occurrence = 0
+class Preprocessor():
     
-  layers = range(-12, 0)
-  points = [[] for layer in layers]
-  print('Getting embeddings for %d sentences '%len(sentences))
-  for sentence in sentences:
-    inputs = tokenizer(sentence, truncation=True, return_tensors="pt")      
-    words = [i[0]
-        for i in tokenizer.backend_tokenizer.pre_tokenizer.pre_tokenize_str(sentence)]
-    target_word_indices = [i for i, x in enumerate(words) if x == word]
-    encoded_text = model(
-        **inputs, output_hidden_states=True)["hidden_states"]
-    word_start, word_end = inputs.word_to_tokens(target_word_indices[word_occurrence])
-    avg_vectors_for_target_word = torch.cat(encoded_text)[:,word_start:word_end,:].mean(dim=1)
-    #print(avg_vectors_for_target_word.shape)
+    def __init__(self, model_name='bert-base-uncased', k=5, device="cuda:1"):
+        ## really shouldnt do this globally
+        self.device = torch.device(device if torch.cuda.is_available() else "cpu")
+        print("device : ", self.device)
 
-    # Reconfigure to have an array of layer: embeddings
-    for l in layers:
-      sentence_embedding = avg_vectors_for_target_word[l]
-      sentence_embedding =  sentence_embedding.detach().numpy()
-      points[l].append(sentence_embedding)
+        self.model_name = model_name
+        self.k = k
+        self.embedding_model = cwe.CWE(model_name, device = device)
+        self.nlp = spacy.load("en_core_web_sm", disable=["tagger", "parser", "ner", "lemmatizer"])
+
+    def neighbors(self, word, df):
+      """Get the info and (umap-projected) embeddings about a word."""
+      sentences = df['sentence'].to_list()
+      df = df.reset_index(drop=True)
+      # Get embeddings.
+      good_indices, points = self.get_embeddings(word.lower(), sentences)
+
+      # Get part of speech of this word.
+      # filter sentences we couldnt get embeddings for
+      print("successfully embedded sentences: ", len(good_indices))
+      print("num embeddings: ", len(points[0]))
+      print(len(df))
+      print(df.head)
+      df =  df.loc[df.index.isin(good_indices)]
+      print(len(df))
+      sent_data = get_poses(word, df)
+
+
+      # Use UMAP to project down to 3 dimnsions.
+      points_transformed = self.project_umap(points)
+
+      clusters = self.cluster_embeddings(points)
+
+      return {'labels': sent_data, 'data': points_transformed, 'clusters': clusters}
+
+    def project_umap(self, points):
+      """Project the words (by layer) into 3 dimensions using umap."""
+      points_transformed = []
+      for layer in points:
+        transformed = umap.UMAP().fit_transform(layer).tolist()
+        points_transformed.append(transformed)
+      return points_transformed
+
+    """
+    GS chronis 03/24
+    """
+    def get_embeddings(self, word, sentences):
+      # empty array for embeddings
+
+
+
+
+      # Get hidden size (embedding & hidden layer size)
+      num_dims = self.embedding_model.model.config.hidden_size
+      
+      # set batch size
+      batch_size=75
+
+
+      # data as list of tuples
+      # data = list(zip(sentences, word))
+
+      # save all queries separately
+      # (needed because some words do not occur in
+      # sentences in the same form and must be fixed first)
+      queries = []
+      for sentence in sentences:
+
+          # get the word's span
+          wordspan = self._find_word_form(word, sentence)
+          # kick out sentences that are too long for the model
+          # if len(sentence) <= self.embedding_model.tokenizer.model_max_length:
+          #     queries.append((sentence, torch.tensor(wordspan)))
+          queries.append((sentence, torch.tensor(wordspan)))
+
+      embeddings = []
+      nans = []
+      for i, batch in tqdm(enumerate(batch_iterable(queries, batch_size))):
+
+        embs = self.embedding_model.extract_representation(batch, layer='all')
+
+        # just look at the first layer bc it will be the same for all
+        layer1 = embs[0]
+
+        # Check for NaN values
+        nan_mask = torch.isnan(layer1)
+
+        # Print the locations where NaNs are present
+        nan_locations = torch.nonzero(nan_mask)
+        # print(nan_locations.shape)
+        rows_with_nan = torch.any(nan_mask, dim=1).nonzero(as_tuple=True)[0].numpy()
+        #print("rows with nan")
+        #print(rows_with_nan)
+
+        # for k in rows_with_nan:
+        #     print("can't get emb for ")
+        #     print(batch[k])
+
+        nan_indices = [row + (batch_size*i) for row in rows_with_nan] # get indices of problem data
+        nans += nan_indices
+
+        # Convert to NumPy array
+        numpy_embs = np.array([layer_emb.detach().cpu().numpy() for layer_emb in embs]) # yelds |13 X 1000 X 768
+        #print(numpy_embs.shape)
+        numpy_embs = np.delete(numpy_embs, rows_with_nan, axis=1) # remove nan rows from this batch
+        embeddings.append(numpy_embs)
+
+      print("couldnt get embs for data at indices", nans )
+
+      # put batches together
+      embeddings = np.concatenate(embeddings, axis=1) # dimension 1 is num_sentences i.e. batch size and the dimension we want to concatenate on 
+      print(embeddings.shape)
+
+      good_indices = np.delete( np.arange(len(sentences)), nans, axis =0)
+      print(len(good_indices))
+      print(len(embeddings))
+      return good_indices, embeddings
+
+
+    def cluster_embeddings(self, points):
+        """
+        :points: an np.ndarray of bert embeddings of dimension [n_layers, n_words, n_dims] (e.g. [12,200,768])
+
+        return: an 2D np.ndarray containing cluster ids of shape [n_layers, n_words]
+        """
+        num_layers = points.shape[0]
+        clusters = []
+        for l in range(0, num_layers):
+            embs = points[l]
+
+            #arr_cleaned = embs[~np.isnan(embs).any(axis=1)]
+            kmeans_obj = KMeans(n_clusters=self.k, n_init=10)
+            kmeans_obj.fit(embs)
+
+            #label_list = kmeans_obj.labels_
+            #cluster_centroids = kmeans_obj.cluster_centers_
+            preds = kmeans_obj.fit_predict(embs)
+
+            # preds = []
+            # for emb in embs:
+            #   try:
+            #     prediction = kmeans_obj.fit_predict(emb)
+            #     preds.append(prediction)
+            #   except:
+            #     preds.append(None)
+            
+            clusters.append( preds)
+
+        return np.asarray(clusters)
+
+    def predict_features_for(self, points, model="buchanan"):
+        """
+        Not implemented yet!
+
+        should return a matrix of feature predictions 
+        """
+        return None
     
-  points = np.asarray(points)
-  return points 
-    
-
-def cluster_embeddings(points, k=5):
-    """
-    :points: an np.ndarray of bert embeddings of dimension [n_layers, n_words, n_dims] (i.e. [12,200,768])
-
-    return: an 2D np.ndarray containing cluster ids of shape [n_layers, n_words]
-    """
-    num_layers = points.shape[0]
-    clusters = []
-    for l in range(0, num_layers):
-        embs = points[l]
-        
-        
-        kmeans_obj = KMeans(n_clusters=k)
-        kmeans_obj.fit(embs)
-
-        #label_list = kmeans_obj.labels_
-        #cluster_centroids = kmeans_obj.cluster_centers_
-        clusters.append( kmeans_obj.fit_predict(embs))
-
-    return np.asarray(clusters)
-
-def predict_features_for(points, model="buchanan"):
-    """
-    Not implemented yet!
-
-    should return a matrix of feature predictions 
-    """
-    return None
+    def _find_word_form(self, word, sentence):
+      """find how word occurs in sentence"""
+      doc = self.nlp(sentence)
+      for token in doc:
+          if token.text == word:
+              return (token.idx, token.idx + len(token.text))
+          
+      raise Exception("target token {} not in sentence {}".format(word, sentence))
 
 def tokenize_sentences(text):
   """Simple tokenizer."""
@@ -178,11 +259,13 @@ def get_sentences():
 
 
 
-def get_poses(word, sentences):
+def get_poses(word, df):
   """Get the part of speech tag for the given word in a list of sentences."""
+  #sentences = df['sentence'].to_list()
+
   sent_data = []
-  for sent in sentences:
-    text = nltk.word_tokenize(sent)
+  for index, row in df.iterrows():
+    text = nltk.word_tokenize(row.sentence)
     pos = nltk.pos_tag(text)
     try:
       word_idx = text.index(word)
@@ -190,11 +273,18 @@ def get_poses(word, sentences):
     except:
       pos_tag = 'X'
     sent_data.append({
-      'sentence': sent,
-      'pos': pos_tag
+      'sentence': row.sentence,
+      'pos': pos_tag,
+      'source': row.source
     })
 
   return sent_data
+
+
+# helper function to batch process inputs
+def batch_iterable(iterable, batch_size):
+    for i in range(0, len(iterable), batch_size):
+        yield iterable[i:i + batch_size]
 
 
 if __name__ == '__main__':
