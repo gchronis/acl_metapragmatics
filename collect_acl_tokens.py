@@ -16,8 +16,8 @@ from tqdm import tqdm
 
 from spacy.matcher import PhraseMatcher, Matcher
 
-_ACL_ARCHIVE_PATH = "/Volumes/data_gabriella_chronis/corpora/acl-publication-info.74k.parquet"
-_OUT_DIR = './collected_tokens/acl'
+_ACL_ARCHIVE_PATH = "/home/gsc685/data/acl-publication-info.74k.parquet"
+_OUT_DIR = '/home/gsc685/data/collected_tokens/acl'
 
 def build_phrase_matcher(targets=None):
     """
@@ -68,7 +68,7 @@ def get_matches_in_doc(doc_id, doc_text, phrase_matcher, matches=None):
     return matches
 
 
-def get_matches_in_corpus(df, targets, phrase_matcher=None, outdir=None):
+def get_matches_in_corpus(df, targets, phrase_matcher=None):
 
     if phrase_matcher is None:
         phrase_matcher = build_phrase_matcher(targets = targets)
@@ -78,12 +78,7 @@ def get_matches_in_corpus(df, targets, phrase_matcher=None, outdir=None):
         matches = get_matches_in_doc(row.corpus_paper_id, row.full_text, phrase_matcher, matches)
         #print(matches)
     #get the word as opposed to the spacy vocab id
-    for key in list(matches.keys()):
-        word = nlp.vocab.strings[key]
-        
-        matches_df = pd.DataFrame.from_records(matches.pop(key))
-        if outdir:
-            matches_df.to_csv(outdir+'/'+word+'.csv')
+    return matches
 
 def load_acl_archive():
     parquet_file = _ACL_ARCHIVE_PATH
@@ -102,10 +97,17 @@ if __name__ == '__main__':
     # words we wish to collect sentences for
     #targets = ["toxic", "toxicity", "hallucination", "hallucinate", "safe", "safety"]
     #targets = ["reference", "intention", "intension", "sense", "symbol", "symbolic", "index", "indexical", "icon", "iconic"]
-    targets = ["model", "models"]
+    # targets = ["model", "models"]
+    targets = ["human", "harness", "helpful", "honest", "harmless", "friendly"]
 
     df = load_acl_archive()
     
     phrase_matcher = build_phrase_matcher(targets=targets)
-    get_matches_in_corpus(df, targets, outdir=outdir, phrase_matcher=phrase_matcher)
-    
+
+    matches_dict = get_matches_in_corpus(df, targets, phrase_matcher=phrase_matcher)
+
+    for key in tqdm(list(matches.keys())):
+        word = nlp.vocab.strings[key] 
+        matches_df = pd.DataFrame.from_records(matches.pop(key))
+        if outdir:
+            matches_df.to_csv(outdir+'/'+word+'.csv', index=True)

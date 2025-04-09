@@ -45,7 +45,10 @@ def add_matches_to_dict(match_list, match_dict, doc_id, sent_text):
         word = match[0]
         start_idx = match[1]
         end_idx = match[2]
-        entry = {"corpus_id": doc_id, "sentence": sent_text, "start_idx": start_idx, "end_idx": end_idx}
+        entry = {"corpus_id": doc_id, 
+                 "sentence": sent_text, 
+                 "start_idx": start_idx, 
+                 "end_idx": end_idx}
         match_dict[word].append(entry)
     return match_dict
 
@@ -75,6 +78,8 @@ def get_matches_in_corpus(df, targets, phrase_matcher=None, outdir=None):
     for idx, row in tqdm(df.iterrows()):
         matches = get_matches_in_doc(row.textID, row.doc_text, phrase_matcher, matches)
         #print(matches)
+
+    
     #get the word as opposed to the spacy vocab id
     for key in list(matches.keys()):
         word = nlp.vocab.strings[key]
@@ -88,8 +93,8 @@ def load_archive(parquet_file):
     
 if __name__ == '__main__':
 
-    _COCA_ARCHIVE_PATH = '/Volumes/data_gabriella_chronis/corpora/coca.2017.parquet'
-    _COCA_OUT_DIR = './collected_tokens/coca'
+    _COCA_ARCHIVE_PATH = '/home/gsc685/data/coca.2017.parquet'
+    _COCA_OUT_DIR = '/home/gsc685/data/collected_tokens/coca'
 
     parser = argparse.ArgumentParser(description="Parse a corpus file.")
     parser.add_argument('--corpus_path', type=str, required=False, default=_COCA_ARCHIVE_PATH, help="Path to the corpus file.")
@@ -102,10 +107,10 @@ if __name__ == '__main__':
     nlp.add_pipe('sentencizer')
 
     # words we wish to collect sentences for
-    #targets = ["toxic", "toxicity", "hallucination", "hallucinate", "safe", "safety"]
-    #targets = ["reference", "intention", "intension", "sense", "symbol", "symbolic", "index", "indexical", "icon", "iconic"]
+    #targets = ["toxic", "toxicity", "hallucination", "hallucinate", "safe", "safety", "reference", "intention", "intension", "sense", "symbol", "symbolic", "index", "indexical", "icon", "iconic"]
     #targets = ["model", "models"]
-    targets = ["human", "harness", "helpful", "honest", "harmless", "friendly"]
+    #targets = ["human", "harness", "helpful", "honest", "harmless", "friendly"]
+    
 
     df = load_archive(args.corpus_path)
     
