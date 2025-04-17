@@ -39,32 +39,38 @@ def build_phrase_matcher(targets=None):
     
     return phrase_matcher
 
-def add_matches_to_dict(match_list, match_dict, doc_id, sent_text):
+def add_matches_to_dict(doc, match_list, match_dict, doc_id, token_id, sent_text):
     """
     match list is in the form of a list of tuples [(match_phrase_id, start index, end index)]
     """
-    for match in match_list:
-        word = match[0]
-        start_idx = match[1]
-        end_idx = match[2]
-        entry = {"corpus_id": doc_id, "sentence": sent_text, "start_idx": start_idx, "end_idx": end_idx}
+    for match_id, start, end in match_list:
+        word = match_id
+        span = doc[start:end]
+        assert len(span) == 1 # we should only have one word here
+        pos = span[0].pos_
+        entry = {"corpus_id": doc_id, 
+                 "sentence_id": token_id, 
+                 "sentence": sent_text,
+                 "start_idx": span.start_char, 
+                 "end_idx": span.end_char,
+                 "pos": pos}
         match_dict[word].append(entry)
     return match_dict
 
 def get_matches_in_doc(doc_id, doc_text, phrase_matcher, matches=None):
     """
     searches through a docstring to extract a given token.
-    ::
+    :: keeps passing match_dict and adding to it
     """
     if matches is None:
         matches = defaultdict(list)
     
     doc = nlp(doc_text)
-    for sent in doc.sents:
+    for i, sent in enumerate(doc.sents):
+        token_id = i
         # this will be a list of tuples
         this_sent_matches = phrase_matcher(nlp(sent.text))
-        matches = add_matches_to_dict(this_sent_matches, matches, doc_id, sent)
-        
+        matches = add_matches_to_dict(doc, this_sent_matches, matches, doc_id, token_id, sent)    
     return matches
 
 
@@ -98,7 +104,8 @@ if __name__ == '__main__':
     #targets = ["toxic", "toxicity", "hallucination", "hallucinate", "safe", "safety"]
     #targets = ["reference", "intention", "intension", "sense", "symbol", "symbolic", "index", "indexical", "icon", "iconic"]
     # targets = ["model", "models"]
-    targets = ["human", "harness", "helpful", "honest", "harmless", "friendly"]
+    # targets = ["human", "harness", "helpful", "honest", "harmless", "friendly"]
+    targets = ['no', 'first', 'one', 'third', 'large', 'high', 'clear', 'same', 'general', 'ready', 'age', 'information', 'word', 'door', 'meaning', 'government', 'study', 'animal', 'growth', 'building', 'left', 'seem', 'died', 'obtained', 'ran', 'built', 'considered', 'took', 'stand', 'suppose']
 
     df = load_acl_archive()
     
@@ -106,8 +113,8 @@ if __name__ == '__main__':
 
     matches_dict = get_matches_in_corpus(df, targets, phrase_matcher=phrase_matcher)
 
-    for key in tqdm(list(matches.keys())):
+    for key in tqdm(list(matches_dict.keys())):
         word = nlp.vocab.strings[key] 
-        matches_df = pd.DataFrame.from_records(matches.pop(key))
+        matches_df = pd.DataFrame.from_records(matches_dict.pop(key))
         if outdir:
             matches_df.to_csv(outdir+'/'+word+'.csv', index=True)
