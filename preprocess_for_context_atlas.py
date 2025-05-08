@@ -64,11 +64,28 @@ class Preprocessor():
         self.nlp = spacy.load("en_core_web_sm", disable=["tagger", "parser", "ner", "lemmatizer"])
 
     def neighbors(self, word, df):
-      """Get the info and (umap-projected) embeddings about a word."""
+      """Get the info and (umap-projected) embeddings about a word.
+      Arguments:
+        word: the word to get embeddings for
+        df: a dataframe with sentences and sources
+      Returns:
+      A dictionary with the following keys:
+        - 'labels': a list of dictionaries with the sentence, part of speech and source
+        - 'data': a list of lists with the umap-projected embeddings
+        - 'clusters': a list of lists with the cluster ids for each layer
+      """
+      
+
       sentences = df['sentence'].to_list()
       df = df.reset_index(drop=True)
       # Get embeddings.
-      good_indices, points = self.get_embeddings(word.lower(), sentences)
+
+      if 'word_form' in df.columns:   # if the word form is in the dataframe, use that
+        words = df['word_form'].to_list()
+      else: # otherwise default to the lemma
+        words = [word.lower()] * len(sentences)
+
+      good_indices, points = self.get_embeddings(words, sentences)
 
       # Get part of speech of this word.
       # filter sentences we couldnt get embeddings for
@@ -78,7 +95,7 @@ class Preprocessor():
       print(df.head)
       df =  df.loc[df.index.isin(good_indices)]
       print(len(df))
-      sent_data = get_poses(word, df)
+      sent_data = get_labels(word, df)
 
 
       # Use UMAP to project down to 3 dimnsions.
@@ -99,7 +116,7 @@ class Preprocessor():
     """
     GS chronis 03/24
     """
-    def get_embeddings(self, word, sentences):
+    def get_embeddings(self, words, sentences):
       # empty array for embeddings
 
 
@@ -119,10 +136,10 @@ class Preprocessor():
       # (needed because some words do not occur in
       # sentences in the same form and must be fixed first)
       queries = []
-      for sentence in sentences:
-
+      for i, sentence in enumerate(sentences):
+          word = words[i]
           # get the word's span
-          wordspan = self._find_word_form(word, sentence)
+          wordspan = self._find_word_form(word, sentence.lower())
           # kick out sentences that are too long for the model
           # if len(sentence) <= self.embedding_model.tokenizer.model_max_length:
           #     queries.append((sentence, torch.tensor(wordspan)))
@@ -259,8 +276,8 @@ def get_sentences():
 
 
 
-def get_poses(word, df):
-  """Get the part of speech tag for the given word in a list of sentences."""
+def get_labels(word, df):
+  """Get the part of speech tag and other metadata labels for the given word in a list of sentences."""
   #sentences = df['sentence'].to_list()
 
   sent_data = []
@@ -272,10 +289,15 @@ def get_poses(word, df):
       pos_tag = pos[word_idx][1]
     except:
       pos_tag = 'X'
+    try:
+      sense = row.sense
+    except:
+       sense = 'X'
     sent_data.append({
       'sentence': row.sentence,
       'pos': pos_tag,
-      'source': row.source
+      'source': row.source,
+      'sense': sense,
     })
 
   return sent_data
