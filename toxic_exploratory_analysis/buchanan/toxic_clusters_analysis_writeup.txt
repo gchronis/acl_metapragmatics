@@ -1,0 +1,337 @@
+SEMANTIC FEATURE ANALYSIS OF "TOXIC" USAGE CLUSTERS
+====================================================
+
+1. METHODS
+----------
+
+We analyzed semantic feature profiles of the word "toxic" across two corpora:
+ACL Anthology papers (academic NLP literature) and COCA (Corpus of Contemporary
+American English, representing general discourse). Contextualized embeddings were
+extracted from RoBERTa (layer 7) for each token instance of "toxic" (N=5,170 tokens;
+ACL=2,585, COCA=2,585). Joint k-means clustering across both corpora yielded 9
+clusters capturing distinct usage patterns.
+
+For each cluster, we conducted three analyses using Buchanan semantic feature norms:
+(1) Feature activation profiles: Mean predicted values for 1,373 semantic features
+(2) Cluster distinctiveness: Logistic regression predicting cluster membership vs.
+    all other clusters from each feature (identifies features characterizing each usage)
+(3) Source differences: Logistic regression predicting corpus source (ACL vs. COCA)
+    within each cluster (identifies how academic vs. general usage differs)
+
+Infrequent features (N=2,608 with <10 ratings) were excluded. Positive regression
+coefficients indicate higher feature values predict cluster membership or COCA source;
+negative coefficients indicate prediction of other clusters or ACL source.
+
+
+2. CLUSTER DESCRIPTIONS
+-----------------------
+
+================================================================================
+CLUSTER 0: Social/Interpersonal Harm
+================================================================================
+Size: N=567 (ACL=372, COCA=195)
+
+EXAMPLE SENTENCES:
+- [COCA] "That's a primary takeaway of the research on poverty: part of what makes
+   poverty toxic may be the lack of control over what's happening to you."
+- [COCA] "And you just heard from these victims, there are too many command climates
+   that are toxic."
+- [ACL] "Online abuse can inflict harm on users and communities, making online spaces
+   unsafe and toxic."
+- [COCA] "It's a toxic - I would say it's the industrial disease of creativity."
+- [COCA] "The moves this past week may not simplify Matheny's call but so far it's
+   turned parts of the bullpen from toxic to electric."
+
+TOP 10 FEATURE ACTIVATIONS (ACL/COCA):
+  ACL:  person(6.23), hurt(4.68), grow(4.27), good(4.02), bad(3.78), eat(3.67),
+        color(3.41), water(3.06), feel(3.01), smart(2.95)
+  COCA: person(4.09), hurt(3.87), water(3.86), good(3.83), bad(3.71), animal(3.64),
+        feel(3.50), grow(3.26), color(3.09), leg(3.04)
+
+TOP FEATURES DISTINGUISHING THIS CLUSTER FROM OTHERS:
+  Positive (predicts cluster): finance(4.99), deal(4.31), adult(3.88), regret(3.40)
+  Negative (predicts others): origin(-6.16), document(-5.88), fresh(-4.24), theory(-3.78)
+
+TOP FEATURES DISTINGUISHING COCA VS ACL WITHIN CLUSTER:
+  Positive (predicts COCA): comb(2.87), compose(2.50), murder(2.47), roof(2.46), box(2.29)
+  Negative (predicts ACL): function(-2.72), fake(-2.65), converse(-2.40), rhyme(-2.30)
+
+INTERPRETATION: General harm/relationship context; COCA emphasizes concrete physical
+scenarios while ACL focuses on abstract functional/communicative aspects.
+
+================================================================================
+CLUSTER 1: Toxic Content/Spans (Technical NLP)
+================================================================================
+Size: N=735 (ACL=717, COCA=18)
+
+EXAMPLE SENTENCES:
+- [ACL] "The main contributions of this work are the following: We addressed for the
+   second time the task of unsupervised civil rephrases of toxic texts..."
+- [ACL] "Figure 3 shows the most frequent toxic spans in the dataset."
+- [ACL] "However, the tremendous amount of shared and distributed toxic messages on
+   social media platforms make it utterly infeasible to identify and tag or delete
+   poisonous comments manually."
+- [ACL] "We propose BERToxic, a system that fine-tunes a pre-trained BERT model to
+   locate toxic text spans in a given text."
+
+TOP 10 FEATURE ACTIVATIONS (ACL/COCA):
+  ACL:  person(6.67), color(5.10), grow(4.56), water(4.38), good(4.17), act(3.83),
+        bad(3.78), hurt(3.68), place(3.22), plant(3.08)
+  COCA: person(7.89), color(5.33), grow(4.53), water(4.13), eat(3.29), act(3.29),
+        plant(3.28), place(3.10), good(3.05), bad(3.05)
+
+TOP FEATURES DISTINGUISHING THIS CLUSTER FROM OTHERS:
+  Positive (predicts cluster): rope(5.46), stalk(4.36), rhyme(3.89), guard(3.88)
+  Negative (predicts others): continue(-4.98), schedule(-4.37), comb(-4.04), crisp(-3.94)
+
+TOP FEATURES DISTINGUISHING COCA VS ACL WITHIN CLUSTER:
+  Positive (predicts COCA): brick(1.71), roof(1.63), bullet(1.52), second(1.52)
+  Negative (predicts ACL): violent(-1.94), affect(-1.79), please(-1.78), state(-1.54)
+
+INTERPRETATION: Technical NLP terminology for content moderation; predominantly
+academic usage discussing toxic spans, detection systems, and classification tasks.
+
+================================================================================
+CLUSTER 2: Toxicity Labeling/Annotation
+================================================================================
+Size: N=550 (ACL=545, COCA=5)
+
+EXAMPLE SENTENCES:
+- [ACL] "We find evidence of this phenomena in the BOLD dataset for religion prompts,
+   which contain toxic and stereotyped content."
+- [ACL] "We consider an example toxic if >=50% of annotators marked it as toxic, and
+   nontoxic if none of the annotators mark it as toxic."
+- [ACL] "The data has been labelled with identity mentions, such as Muslim, Gay or
+   Black, and a toxicity score."
+- [ACL] "six classes: toxic, severe toxic, obscene, threat, insult, and identity hate."
+
+TOP 10 FEATURE ACTIVATIONS (ACL/COCA):
+  ACL:  person(6.99), color(6.99), hurt(6.32), bad(4.25), act(4.20), animal(4.15),
+        good(4.03), human(3.66), water(3.55), money(3.46)
+  COCA: color(7.25), animal(4.71), hurt(4.28), leg(3.92), person(3.69), bad(3.40),
+        smart(3.36), grow(3.13), comfort(2.81), good(2.81)
+
+TOP FEATURES DISTINGUISHING THIS CLUSTER FROM OTHERS:
+  Positive (predicts cluster): allergy(5.18), excess(5.02), oblige(4.27)
+  Negative (predicts others): pound(-5.13), courage(-4.54), hollow(-4.21), funeral(-4.17)
+
+TOP FEATURES DISTINGUISHING COCA VS ACL WITHIN CLUSTER:
+  Positive (predicts COCA): cream(1.75), pull(1.55), thick(1.51)
+  Negative (predicts ACL): cause(-2.12), stock(-1.52), sour(-1.47), party(-1.47)
+
+INTERPRETATION: Dataset annotation and labeling methodology; almost exclusively
+academic usage focused on toxicity classification schemes and annotation procedures.
+
+================================================================================
+CLUSTER 3: Toxic Environments/Leadership
+================================================================================
+Size: N=645 (ACL=411, COCA=234)
+
+EXAMPLE SENTENCES:
+- [COCA] "Protesters, media and civic leaders began to connect the dots regarding the
+   long-existing toxic stress in Ferguson and many other poor areas."
+- [COCA] "They said toxic leaders were mean and abusive."
+- [COCA] "But it raises a big question: Have toxic leaders played a role in many more
+   suicides?"
+- [ACL] "Insults do not necessarily have a topic, but there certainly exist toxic
+   topics, such as sexism, racism, xenophobia."
+- [ACL] "Toloka has a special mark for cases of inappropriate and toxic content."
+
+TOP 10 FEATURE ACTIVATIONS (ACL/COCA):
+  ACL:  person(6.35), color(4.85), hurt(4.48), bad(3.87), feel(3.81), good(3.31),
+        word(2.50), act(2.45), grow(2.45), sad(2.43)
+  COCA: person(5.26), color(4.50), bad(4.04), feel(3.76), hurt(3.22), good(3.07),
+        animal(2.85), leg(2.68), place(2.52), smell(2.43)
+
+TOP FEATURES DISTINGUISHING THIS CLUSTER FROM OTHERS:
+  Positive (predicts cluster): commit(4.79), irritate(4.70), slave(4.15)
+  Negative (predicts others): generous(-5.09), vote(-4.53), split(-4.38), surprise(-4.24)
+
+TOP FEATURES DISTINGUISHING COCA VS ACL WITHIN CLUSTER:
+  Positive (predicts COCA): adult(2.59), slave(2.49), quick(2.41), wave(2.41)
+  Negative (predicts ACL): wound(-3.20), vote(-3.14), negate(-2.47), erase(-2.45)
+
+INTERPRETATION: Organizational/social toxicity contexts; COCA emphasizes leadership
+and social dynamics while ACL focuses on topic categorization and content types.
+
+================================================================================
+CLUSTER 4: Toxic Data/Systems (Technical)
+================================================================================
+Size: N=347 (ACL=334, COCA=13)
+
+EXAMPLE SENTENCES:
+- [ACL] "The definition for Very toxic included comments which use harsh, offensive
+   or abusive language."
+- [ACL] "However, more recent work has shown that existing hate speech classifiers
+   are likely to falsely label text containing identity terms like 'black' as toxic."
+- [ACL] "We built and compared two systems, one using only the original data for
+   training, and the second using also toxic data."
+- [ACL] "These stopwords can exist as part of multiword toxic spans."
+
+TOP 10 FEATURE ACTIVATIONS (ACL/COCA):
+  ACL:  person(5.26), grow(4.83), plant(4.19), eat(3.74), water(3.40), small(3.38),
+        up(2.95), place(2.92), act(2.91), tree(2.74)
+  COCA: water(5.84), person(5.11), grow(4.82), eat(4.76), color(4.10), act(4.08),
+        place(3.86), plant(3.72), small(3.67), leg(3.55)
+
+TOP FEATURES DISTINGUISHING THIS CLUSTER FROM OTHERS:
+  Positive (predicts cluster): hill(6.56), correct(5.97), egypt(5.72), startle(5.59),
+        bump(5.16), noun(5.08), bible(5.07), bite(5.03)
+  Negative (predicts others): rot(-5.28)
+
+TOP FEATURES DISTINGUISHING COCA VS ACL WITHIN CLUSTER:
+  Positive (predicts COCA): salt(2.06), weird(1.86), opinion(1.81), strange(1.80)
+  Negative (predicts ACL): breakfast(-2.08), side(-1.72)
+
+INTERPRETATION: Technical ML/NLP systems context; predominantly academic discussion
+of toxic data handling, model training, and classifier development.
+
+================================================================================
+CLUSTER 5: Chemical/Physical Toxicity
+================================================================================
+Size: N=709 (ACL=96, COCA=613)
+
+EXAMPLE SENTENCES:
+- [COCA] "Children's vulnerability to toxic chemicals: a challenge and opportunity to
+   strengthen health and environmental policy."
+- [COCA] "Five years after treatment the probability of surviving with the penis
+   intact was 85%, although 13 men had surgical treatment for toxic side effects."
+- [COCA] "In only a moment, Sam could see burning rafters and insulation boiling with
+   toxic smoke."
+- [COCA] "It explores the fact that textile industries discharged effluent having
+   heavy metal dyes that is toxic to the aquatic life."
+- [COCA] "They found sulphur oxide mixed with other types of sulphur, leading to
+   toxic levels that made it nearly impossible for species to survive."
+
+TOP 10 FEATURE ACTIVATIONS (ACL/COCA):
+  ACL:  color(5.78), act(4.56), person(4.05), hurt(4.04), bad(3.71), good(3.57),
+        fruit(2.90), sick(2.70), sun(2.59), nose(2.55)
+  COCA: color(5.08), bad(3.39), hurt(3.34), good(3.19), act(3.13), person(2.46),
+        fruit(2.38), nose(2.32), sun(2.30), sick(2.26)
+
+TOP FEATURES DISTINGUISHING THIS CLUSTER FROM OTHERS:
+  Positive (predicts cluster): detail(6.42), document(6.38), bristle(5.04), harsh(4.94)
+  Negative (predicts others): excess(-7.52), stalk(-7.01), gossip(-5.68), lack(-5.55)
+
+TOP FEATURES DISTINGUISHING COCA VS ACL WITHIN CLUSTER:
+  Positive (predicts COCA): slide(1.69), ingredient(1.64), knit(1.51), thick(1.45)
+  Negative (predicts ACL): whip(-1.63), stop(-1.53), rhythm(-1.45), cylinder(-1.34)
+
+INTERPRETATION: Literal chemical/biological toxicity; predominantly COCA usage
+referring to poisonous substances, environmental hazards, and medical side effects.
+
+================================================================================
+CLUSTER 6: Toxic Language Detection (Methodological)
+================================================================================
+Size: N=797 (ACL=789, COCA=8)
+
+EXAMPLE SENTENCES:
+- [ACL] "While there are many freely-available lexicons of toxic words, we favoured
+   those that maintained the accuracy of the detection of toxic spans."
+- [ACL] "We compared if the F1 scores for observations a single toxic word were
+   higher for the models trained with augmented data."
+- [ACL] "We calculated the mean pairwise Cohen's kappa per post, using character
+   offsets as instances being classified as toxic or non-toxic."
+- [ACL] "2020 uses a pipeline of models: a search engine finds non-toxic sentences
+   similar to the given toxic ones."
+
+TOP 10 FEATURE ACTIVATIONS (ACL/COCA):
+  ACL:  color(8.87), person(6.24), hurt(5.61), water(5.12), act(4.67), bad(4.47),
+        good(4.17), animal(3.99), grow(3.63), mouth(3.52)
+  COCA: hurt(6.11), color(5.51), person(5.50), act(5.41), animal(4.68), human(4.38),
+        bad(4.23), good(4.09), feel(3.97), red(3.52)
+
+TOP FEATURES DISTINGUISHING THIS CLUSTER FROM OTHERS:
+  Positive (predicts cluster): excess(5.10), origin(4.53), continue(4.19), roll(4.15)
+  Negative (predicts others): hollow(-4.93), unite(-4.71), spoon(-4.20), monarch(-4.17)
+
+TOP FEATURES DISTINGUISHING COCA VS ACL WITHIN CLUSTER:
+  Positive (predicts COCA): engine(1.82), reach(1.61), rotate(1.60), destination(1.48)
+  Negative (predicts ACL): jungle(-1.57), addict(-1.54), breakfast(-1.39)
+
+INTERPRETATION: NLP methodology for toxic language detection; almost exclusively
+academic usage discussing detection methods, lexicons, and evaluation metrics.
+
+================================================================================
+CLUSTER 7: Toxic vs Non-Toxic Classification
+================================================================================
+Size: N=353 (ACL=353, COCA=0)
+
+EXAMPLE SENTENCES:
+- [ACL] "Then we trained a multi-class classifier with nine categories: eight toxic
+   and one non-toxic."
+- [ACL] "We aggregate the abusive and hateful labels into a single toxic category,
+   yielding 32k toxic and 54k non-toxic tweets."
+- [ACL] "These messages are then split in half and are used to study whether a model
+   generates toxic continuations from a non-toxic prompt."
+- [ACL] "lacks recognizable toxic features such as insults and curse words and is
+   classified as non-toxic by the sentiment-less neural network."
+- [ACL] "In our analyses, we label a prompt as toxic if it has TOXICITY 0.5, and
+   non-toxic otherwise."
+
+TOP 10 FEATURE ACTIVATIONS (ACL only - no COCA instances):
+  ACL:  color(5.49), hurt(5.45), act(5.45), person(5.28), animal(4.19), bad(4.14),
+        good(4.06), mouth(3.11), grow(2.98), smart(2.78)
+
+TOP FEATURES DISTINGUISHING THIS CLUSTER FROM OTHERS:
+  Positive (predicts cluster): roll(3.77), continue(3.76), prize(3.60), front(3.47)
+  Negative (predicts others): limb(-3.83), hollow(-3.63), guess(-3.51), wrinkle(-3.21)
+
+SOURCE COMPARISON: N/A (100% ACL, no COCA instances)
+
+INTERPRETATION: Binary classification terminology; exclusively academic usage focused
+on toxic/non-toxic categorization in NLP classification tasks.
+
+================================================================================
+CLUSTER 8: Toxic Language Research
+================================================================================
+Size: N=467 (ACL=439, COCA=28)
+
+EXAMPLE SENTENCES:
+- [ACL] "2018 for toxic language detection."
+- [ACL] "Our work provides a test bed for evaluating toxic generations by LMs and
+   stresses the need for better data selection processes for pretraining."
+- [ACL] "We call this model CNN-SEQ and fine-tune it on dense toxic spans, treated
+   as 'entities'."
+- [COCA] "Heather Koenig, 45, had heard about the event on toxic stress from the
+   television."
+- [ACL] "We draw from two existing toxic language detection corpora to select 571 posts."
+
+TOP 10 FEATURE ACTIVATIONS (ACL/COCA):
+  ACL:  color(7.35), person(5.75), good(5.10), act(4.90), grow(4.63), bad(4.59),
+        water(4.57), hurt(4.48), fruit(3.97), tree(3.94)
+  COCA: color(6.61), act(4.79), person(4.10), good(3.95), water(3.84), bad(3.67),
+        hurt(3.58), fruit(3.31), noise(3.18), sense(3.02)
+
+TOP FEATURES DISTINGUISHING THIS CLUSTER FROM OTHERS:
+  Positive (predicts cluster): bitter(3.88), mess(3.16)
+  Negative (predicts others): allergy(-4.50), saw(-4.09), skill(-3.97), adult(-3.88)
+
+TOP FEATURES DISTINGUISHING COCA VS ACL WITHIN CLUSTER:
+  Positive (predicts COCA): thought(1.68), five(1.62), layer(1.62), appendage(1.58)
+  Negative (predicts ACL): erase(-1.86), bitter(-1.71), content(-1.50)
+
+INTERPRETATION: General toxic language research context; predominantly academic
+with some general usage discussing toxic stress and language phenomena.
+
+
+3. SUMMARY
+----------
+
+The semantic feature analysis reveals distinct usage patterns for "toxic":
+
+ACADEMIC (ACL) DOMINANT CLUSTERS:
+- Cluster 1, 2, 4, 6, 7, 8: Technical NLP terminology for content moderation,
+  detection systems, annotation, and classification methodology
+
+GENERAL (COCA) DOMINANT CLUSTERS:
+- Cluster 5: Literal chemical/biological toxicity (environmental, medical)
+- Cluster 0, 3: Metaphorical social toxicity (relationships, leadership, environments)
+
+Key findings:
+1. Academic usage focuses on computational operationalization of toxicity
+2. General usage maintains both literal (chemical) and figurative (social) meanings
+3. Within shared clusters, academic usage emphasizes functional/abstract features
+   while general usage emphasizes concrete/physical features
+4. High separation in feature profiles enables accurate source prediction within
+   most clusters (accuracy >90% in several cases)
